@@ -74,6 +74,16 @@
             transform: translateY(-2px);
         }
 
+        /* Disable buttons visually when loading */
+        .neon-button-base:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .neon-button-base:disabled:hover {
+            transform: none;
+        }
+
         /* Blue Neon (Get Script) */
         .neon-blue {
             box-shadow: 0 0 5px #3b82f6, 0 0 10px rgba(59, 130, 246, 0.5); 
@@ -204,7 +214,8 @@
                         <p class="text-gray-600 mb-4">
                             The updated Fish It script with features such as Auto Fish, Auto Sell, Teleport, Inf Jump, and many others can be downloaded without a key and without a ban.
                         </p>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue" data-script="Fish_It">
+                        <!-- Button is disabled by default until Firebase Auth is ready -->
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="Fish_It" disabled>
                             Download Script
                         </button>
                     </div>
@@ -224,7 +235,8 @@
                         <p class="text-gray-600 mb-4">
                             A great script for 99 Nights in the Forest with features like Kill Aura, Auto Farm, Auto Fill Hunger, and much more.
                         </p>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue" data-script="99_nights">
+                        <!-- Button is disabled by default until Firebase Auth is ready -->
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="99_nights" disabled>
                             Download Script
                         </button>
                     </div>
@@ -239,11 +251,12 @@
                             class="w-full h-40 object-cover"
                             onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
                     <div class="p-5">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">steal a brainrot</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Steal a Brainrot</h3>
                         <p class="text-gray-600 mb-4">
                             A new script for Steal a Brainrot. Get the best features now.
                         </p>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue" data-script="brainrot_steal">
+                        <!-- Button is disabled by default until Firebase Auth is ready -->
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="brainrot_steal" disabled>
                             Download Script
                         </button>
                     </div>
@@ -258,11 +271,12 @@
                             class="w-full h-40 object-cover"
                             onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
                     <div class="p-5">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">grow a garden</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Grow a Garden</h3>
                         <p class="text-gray-600 mb-4">
                             best seeds to plant, auto plant, auto buy, auto sell, auto collect, infinite seeds, tools to use, and ways to grow your farm faster
                         </p>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue" data-script="grow_garden">
+                        <!-- Button is disabled by default until Firebase Auth is ready -->
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="grow_garden" disabled>
                             Download Script
                         </button>
                     </div>
@@ -321,12 +335,12 @@
     <div id="fireworks-container" class="fireworks-container"></div>
 
     <script type="module">
-        // --- FIREBASE IMPORTS ---
+        // --- FIREBASE IMPORTS (Імпорти Firebase) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- GLOBAL VARIABLES & CONFIG ---
+        // --- GLOBAL VARIABLES & CONFIG (Глобальні змінні та конфігурація) ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -336,7 +350,7 @@
         let userId = null;
         let currentScript = null; // Store which script was clicked
 
-        // DOM Elements
+        // DOM Elements (Елементи DOM)
         const getScriptBtns = document.querySelectorAll('.get-script-btn');
         const okBtn = document.getElementById('ok-btn');
         const gotItBtn = document.getElementById('got-it-btn');
@@ -353,9 +367,9 @@
         const messageModal = document.getElementById('message-modal');
         const fireworksContainer = document.getElementById('fireworks-container');
 
-        // --- UTILITY FUNCTIONS ---
+        // --- UTILITY FUNCTIONS (Допоміжні функції) ---
 
-        /** Shows a custom message box (instead of alert) */
+        /** Shows a custom message box (instead of alert) (Показує власне вікно повідомлень) */
         function showMessage(title, content) {
             connectModal.classList.add('hidden');
             loadingModal.classList.add('hidden');
@@ -366,7 +380,7 @@
             overlay.classList.remove('hidden');
         }
 
-        /** Hides all modals */
+        /** Hides all modals (Ховає всі модальні вікна) */
         function hideModals() {
             overlay.classList.add('hidden');
             connectModal.classList.add('hidden');
@@ -378,7 +392,7 @@
             fireworksContainer.innerHTML = '';
         }
 
-        /** Manages the fireworks animation */
+        /** Manages the fireworks animation (Керує анімацією феєрверків) */
         function launchFireworks() {
             fireworksContainer.classList.remove('hidden');
             fireworksContainer.style.display = 'block';
@@ -433,9 +447,9 @@
             }, numFireworks * 300 + 1000);
         }
 
-        // --- FIRESTORE OPERATIONS ---
+        // --- FIRESTORE OPERATIONS (Операції Firestore) ---
 
-        /** Retrieves the user's nickname from Firestore */
+        /** Retrieves the user's nickname from Firestore (Отримує нікнейм користувача з Firestore) */
         async function getNickname(uid) {
             if (!db || !uid) return null;
             try {
@@ -450,7 +464,7 @@
             return null;
         }
 
-        /** Saves the user's nickname to Firestore */
+        /** Saves the user's nickname to Firestore (Зберігає нікнейм користувача в Firestore) */
         async function saveNickname(uid, nickname) {
             if (!db || !uid) return false;
             try {
@@ -464,7 +478,7 @@
             }
         }
 
-        // --- AUTH & INIT ---
+        // --- AUTH & INIT (Автентифікація та Ініціалізація) ---
 
         async function initFirebase() {
             if (Object.keys(firebaseConfig).length === 0) {
@@ -477,7 +491,7 @@
             db = getFirestore(app);
             auth = getAuth(app);
             
-            // Authenticate the user
+            // Authenticate the user (Автентифікувати користувача)
             try {
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
@@ -489,11 +503,12 @@
                 showMessage('Authentication Failed', 'Could not sign in to the service. Please refresh the page.');
             }
 
-            // Set up auth listener to handle post-sign-in logic (MOVED HERE)
+            // Set up auth listener to handle post-sign-in logic (Встановлення слухача автентифікації)
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     userId = user.uid;
-                    // 1. Fetch saved nickname
+                    
+                    // 1. Fetch saved nickname (Отримати збережений нікнейм)
                     const savedNickname = await getNickname(userId);
 
                     if (savedNickname) {
@@ -503,22 +518,33 @@
                     } else {
                         userDisplayName.textContent = 'New User';
                     }
+                    
+                    // Enable buttons once user is authenticated (Активувати кнопки після автентифікації)
+                    getScriptBtns.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    });
+                    
                 } else {
                     userId = null;
                     userDisplayName.textContent = 'Not Signed In';
+
+                    // Keep buttons disabled if auth fails or not ready (Залишити кнопки неактивними)
+                    getScriptBtns.forEach(btn => {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    });
                 }
             });
         }
 
-        // --- EVENT HANDLERS ---
+        // --- EVENT HANDLERS (Обробники подій) ---
 
-        // Event: "Get Script" Click
+        // Event: "Get Script" Click (Натискання кнопки "Download Script")
         getScriptBtns.forEach(btn => {
             btn.addEventListener('click', (event) => {
-                if (!userId) {
-                    showMessage('Loading...', 'Please wait for authentication to complete before downloading scripts.');
-                    return;
-                }
+                // The button is disabled until userId is set, so no explicit check or loading message needed here.
+                // Кнопка неактивна, доки userId не встановлено, тому перевірка або повідомлення про завантаження не потрібні.
 
                 currentScript = event.currentTarget.getAttribute('data-script');
                 overlay.classList.remove('hidden');
@@ -540,13 +566,13 @@
             connectModal.classList.add('hidden');
             loadingModal.classList.remove('hidden');
 
-            // 1. Save nickname
+            // 1. Save nickname (Збереження нікнейму)
             const saveSuccessful = await saveNickname(userId, nickname);
 
             if (saveSuccessful) {
                 userDisplayName.textContent = nickname; // Update UI display name immediately
 
-                // 2. Simulate "Connecting Script" delay
+                // 2. Simulate "Connecting Script" delay (Симуляція затримки підключення скрипта)
                 setTimeout(() => {
                     loadingModal.classList.add('hidden');
                     successMessage.innerHTML = `Script <strong>"${currentScript}"</strong> successfully injected for <strong>${nickname}</strong>!`;
@@ -585,7 +611,7 @@
             }
         });
 
-        // --- INITIALIZATION ---
+        // --- INITIALIZATION (Ініціалізація) ---
         window.onload = initFirebase;
 
     </script>
