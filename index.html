@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script RB Loader</title>
+    <title>Script RB</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Icons (Ionicons) -->
@@ -44,9 +44,18 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
+        /* Scrollbar (Firefox) - Light Theme */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db #f3f4f6;
+        }
+
         /* Scrollbar (Chrome, Safari, Edge) - Light Theme */
         ::-webkit-scrollbar {
             width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
         }
         ::-webkit-scrollbar-thumb {
             background-color: #d1d5db;
@@ -61,7 +70,8 @@
         }
         .roblox-spinner {
             animation: spin 1s linear infinite;
-            filter: invert(1) brightness(0.2); /* Make white logo black */
+            /* Using a subtle filter to darken the white logo for light mode visibility */
+            filter: grayscale(1) brightness(0.5); 
         }
 
         /* Neon Button Base */
@@ -71,41 +81,37 @@
             transition: all 0.3s ease-in-out;
         }
         .neon-button-base:hover {
-            transform: translateY(-2px);
+             transform: translateY(-2px);
         }
 
-        /* Disable buttons visually when loading */
-        .neon-button-base:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        .neon-button-base:disabled:hover {
-            transform: none;
-        }
-
-        /* Blue Neon (Get Script) */
+        /* Blue Neon (Download Script) */
         .neon-blue {
-            box-shadow: 0 0 5px #3b82f6, 0 0 10px rgba(59, 130, 246, 0.5); 
+            box-shadow: 0 0 5px #3b82f6, 
+                        0 0 10px rgba(59, 130, 246, 0.5); 
         }
         .neon-blue:hover {
-            box-shadow: 0 0 10px #3b82f6, 0 0 20px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 10px #3b82f6, 
+                        0 0 20px rgba(59, 130, 246, 0.6);
         }
 
         /* Green Neon (OK) */
         .neon-green {
-            box-shadow: 0 0 5px #10b981, 0 0 10px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 5px #10b981, 
+                        0 0 10px rgba(16, 185, 129, 0.5);
         }
         .neon-green:hover {
-            box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.6);
+            box-shadow: 0 0 10px #10b981, 
+                        0 0 20px rgba(16, 185, 129, 0.6);
         }
 
         /* Pink Neon (Got It) */
         .neon-pink {
-            box-shadow: 0 0 5px #ec4899, 0 0 10px rgba(236, 72, 153, 0.5);
+            box-shadow: 0 0 5px #ec4899, 
+                        0 0 10px rgba(236, 72, 153, 0.5);
         }
         .neon-pink:hover {
-            box-shadow: 0 0 10px #ec4899, 0 0 20px rgba(236, 72, 153, 0.6);
+            box-shadow: 0 0 10px #ec4899, 
+                        0 0 20px rgba(236, 72, 153, 0.6);
         }
 
         /* Success Text Glow - Adjusted for Light Background */
@@ -123,7 +129,7 @@
             animation: neon-glow-light 2s ease-in-out infinite alternate;
         }
 
-        /* Fireworks Styles (Simplified for brevity, assuming original logic works) */
+        /* Fireworks Styles */
         .fireworks-container {
             position: fixed;
             top: 0;
@@ -147,8 +153,16 @@
         }
 
         @keyframes firework-burst {
-            0% { transform: scale(0.2) translate(0, 0); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1.5) translate(var(--dx), var(--dy)); opacity: 0; filter: blur(3px); }
+            0% {
+                transform: scale(0.2) translate(0, 0);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            100% {
+                transform: scale(1.5) translate(var(--dx), var(--dy));
+                opacity: 0;
+                filter: blur(3px);
+            }
         }
 
         .firework-origin {
@@ -181,102 +195,73 @@
             </nav>
         </header>
 
-        <!-- User Info & Search -->
-        <div class="bg-white border border-gray-200 rounded-xl shadow-inner p-3 mb-4 text-sm flex items-center justify-between">
-            <div id="user-status" class="flex items-center space-x-2 text-gray-700">
-                <!-- User ID will be inserted here -->
-                <ion-icon name="person-circle-outline" class="text-xl text-blue-500"></ion-icon>
-                <span id="user-display-name" class="font-semibold">Loading User...</span>
-            </div>
-            <div class="relative w-1/2">
-                <input 
-                    type="text" 
-                    placeholder="Search" 
-                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg py-2 pl-3 pr-8 text-sm focus:outline-none focus:border-blue-500 transition">
-                <span class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
-                    <ion-icon name="search-outline" class="h-4 w-4"></ion-icon>
-                </span>
-            </div>
+        <!-- Search -->
+        <div class="relative my-4">
+            <input 
+                type="text" 
+                placeholder="Search" 
+                class="w-full bg-white border border-gray-300 text-gray-900 rounded-lg py-3 pl-4 pr-10 focus:outline-none focus:border-blue-500 shadow-sm transition">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </span>
         </div>
 
-        <!-- Main Content (Reordered) -->
+        <!-- Main Content -->
         <main>
-            <!-- Card 1: Fish It (Top Priority Script) -->
+            <!-- Card 1: Popular Script (Fish It) -->
             <section class="my-6">
                 <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">POPULAR SCRIPT</h2>
                 <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
                     <img src="https://i.ytimg.com/vi/hciGicHmyB4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBSyOYC0Z97CvTNLosz2Uwv9PGfMg" 
-                            alt="Fish It" 
-                            class="w-full h-40 object-cover"
-                            onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
+                        alt="Fish It" 
+                        class="w-full h-40 object-cover"
+                        onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
                     <div class="p-5">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">Fish It</h3>
                         <p class="text-gray-600 mb-4">
                             The updated Fish It script with features such as Auto Fish, Auto Sell, Teleport, Inf Jump, and many others can be downloaded without a key and without a ban.
                         </p>
-                        <!-- Button is disabled by default until Firebase Auth is ready -->
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="Fish_It" disabled>
+                        <button data-script-name="Fish It" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue">
                             Download Script
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Card 2: 99 Nights in the Forest (Original Card 1, now Card 2) -->
-            <section class="my-6">
-                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">OTHER SCRIPTS</h2>
-                <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
-                    <img src="https://cdn.gamestatic.net/files/editor_uploads/NikolayD/2025/skript-dlya-roblox-99-nights-in-the-forest_1.jpg" 
-                            alt="99 Nights in the Forest" 
-                            class="w-full h-40 object-cover"
-                            onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
-                    <div class="p-5">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">99 Nights in the Forest</h3>
-                        <p class="text-gray-600 mb-4">
-                            A great script for 99 Nights in the Forest with features like Kill Aura, Auto Farm, Auto Fill Hunger, and much more.
-                        </p>
-                        <!-- Button is disabled by default until Firebase Auth is ready -->
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="99_nights" disabled>
-                            Download Script
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Card 3: Steal a Brainrot (Original Card 2, now Card 3) -->
+            <!-- Card 2: Steal a Brainrot -->
             <section class="my-6">
                 <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3Gx1buVodN6Cj8oatwUCrlj4Avw8yjq64uw&s" 
-                            alt="Steal a Brainrot" 
-                            class="w-full h-40 object-cover"
-                            onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
+                        alt="Steal a Brainrot" 
+                        class="w-full h-40 object-cover"
+                        onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
                     <div class="p-5">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Steal a Brainrot</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">steal a brainrot</h3>
                         <p class="text-gray-600 mb-4">
                             A new script for Steal a Brainrot. Get the best features now.
                         </p>
-                        <!-- Button is disabled by default until Firebase Auth is ready -->
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="brainrot_steal" disabled>
+                        <button data-script-name="Steal a Brainrot" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue">
                             Download Script
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Card 4: Grow a Garden (Original Card 3, now Card 4) -->
+            <!-- Card 3: Grow a Garden -->
             <section class="my-6">
                 <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
                     <img src="https://files.bo3.gg/uploads/image/90018/image/webp-9c9d20cf8bea47f5fe93545db5ed3ffe.webp" 
-                            alt="Grow a Garden" 
-                            class="w-full h-40 object-cover"
-                            onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
+                        alt="Grow a Garden" 
+                        class="w-full h-40 object-cover"
+                        onerror="this.src='https://placehold.co/600x300/e5e7eb/1f2937?text=Image+Error'">
                     <div class="p-5">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Grow a Garden</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">grow a garden</h3>
                         <p class="text-gray-600 mb-4">
                             best seeds to plant, auto plant, auto buy, auto sell, auto collect, infinite seeds, tools to use, and ways to grow your farm faster
                         </p>
-                        <!-- Button is disabled by default until Firebase Auth is ready -->
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue opacity-50 cursor-not-allowed" data-script="grow_garden" disabled>
+                        <button data-script-name="Grow a Garden" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 get-script-btn neon-button-base neon-blue">
                             Download Script
                         </button>
                     </div>
@@ -291,7 +276,8 @@
 
         <!-- 1. Connect Modal -->
         <div id="connect-modal" class="modal-content w-full max-w-sm rounded-lg p-6 text-center hidden">
-            <h2 class="text-xl font-bold text-gray-900 mb-2">Connect The Script</h2>
+            <!-- Dynamically updated title -->
+            <h2 class="text-xl font-bold text-gray-900 mb-2">Connect <span id="script-name-display" class="text-blue-600">Script</span></h2>
             <p class="text-gray-600 mb-4">Enter your nickname to connect the script.</p>
             <input 
                 id="nickname-input"
@@ -301,31 +287,22 @@
             <button id="ok-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 neon-button-base neon-green">
                 OK
             </button>
-            <p id="nickname-error" class="text-red-500 text-sm mt-2 hidden">Please enter a nickname.</p>
         </div>
 
         <!-- 2. Loading Modal -->
         <div id="loading-modal" class="modal-content w-full max-w-sm rounded-lg p-8 text-center hidden">
             <img src="https://i.ibb.co/fdTcCV1g/CITYPNG-COM-HD-Roblox-White-Symbol-Sign-Icon-Logo-PNG-2000x2000.png" 
-                    alt="Roblox Loading" 
-                    class="roblox-spinner mx-auto h-16 w-16">
+                alt="Roblox Loading" 
+                class="roblox-spinner mx-auto h-16 w-16">
+            <p id="loading-message" class="mt-4 text-gray-600">Connecting script...</p>
         </div>
 
         <!-- 3. Success Modal -->
         <div id="success-modal" class="modal-content w-full max-w-sm rounded-lg p-6 text-center hidden">
             <h2 class="text-5xl font-bold mb-3 success-glow uppercase">SUCCESS!</h2>
-            <p id="success-message" class="text-gray-600 mb-5">The script has been successfully connected to your account</p>
+            <p class="text-gray-600 mb-5">The script has been successfully connected to your account</p>
             <button id="got-it-btn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 neon-button-base neon-pink">
                 Got It
-            </button>
-        </div>
-
-        <!-- 4. Message Modal (Replaces alert/confirm) -->
-        <div id="message-modal" class="modal-content w-full max-w-sm rounded-lg p-6 text-center hidden">
-            <h2 id="msg-title" class="text-xl font-bold text-gray-900 mb-2">Error</h2>
-            <p id="msg-content" class="text-gray-600 mb-5">An unknown error occurred.</p>
-            <button id="msg-ok-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 neon-button-base neon-blue">
-                Close
             </button>
         </div>
 
@@ -334,72 +311,33 @@
     <!-- Fireworks Container -->
     <div id="fireworks-container" class="fireworks-container"></div>
 
-    <script type="module">
-        // --- FIREBASE IMPORTS (Імпорти Firebase) ---
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <script>
+        // --- GLOBAL STATE & DOM ELEMENTS ---
+        let selectedScriptName = ''; // State to hold the name of the script being downloaded
 
-        // --- GLOBAL VARIABLES & CONFIG (Глобальні змінні та конфігурація) ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db;
-        let auth;
-        let userId = null;
-        let currentScript = null; // Store which script was clicked
-
-        // DOM Elements (Елементи DOM)
         const getScriptBtns = document.querySelectorAll('.get-script-btn');
         const okBtn = document.getElementById('ok-btn');
         const gotItBtn = document.getElementById('got-it-btn');
         const nicknameInput = document.getElementById('nickname-input');
-        const nicknameError = document.getElementById('nickname-error');
-        const userDisplayName = document.getElementById('user-display-name');
-        const successMessage = document.getElementById('success-message');
-        const msgOkBtn = document.getElementById('msg-ok-btn');
+        const scriptNameDisplay = document.getElementById('script-name-display');
+        const loadingMessage = document.getElementById('loading-message');
 
         const overlay = document.getElementById('modal-overlay');
         const connectModal = document.getElementById('connect-modal');
         const loadingModal = document.getElementById('loading-modal');
         const successModal = document.getElementById('success-modal');
-        const messageModal = document.getElementById('message-modal');
         const fireworksContainer = document.getElementById('fireworks-container');
 
-        // --- UTILITY FUNCTIONS (Допоміжні функції) ---
+        // --- UTILITY FUNCTIONS ---
 
-        /** Shows a custom message box (instead of alert) (Показує власне вікно повідомлень) */
-        function showMessage(title, content) {
-            connectModal.classList.add('hidden');
-            loadingModal.classList.add('hidden');
-            successModal.classList.add('hidden');
-            document.getElementById('msg-title').textContent = title;
-            document.getElementById('msg-content').textContent = content;
-            messageModal.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-        }
-
-        /** Hides all modals (Ховає всі модальні вікна) */
-        function hideModals() {
-            overlay.classList.add('hidden');
-            connectModal.classList.add('hidden');
-            loadingModal.classList.add('hidden');
-            successModal.classList.add('hidden');
-            messageModal.classList.add('hidden');
-            fireworksContainer.classList.add('hidden');
-            fireworksContainer.style.display = 'none';
-            fireworksContainer.innerHTML = '';
-        }
-
-        /** Manages the fireworks animation (Керує анімацією феєрверків) */
+        // Fireworks Function
         function launchFireworks() {
-            fireworksContainer.classList.remove('hidden');
-            fireworksContainer.style.display = 'block';
+            fireworksContainer.classList.remove('hidden'); 
+            fireworksContainer.style.display = 'block'; 
 
             const colors = ['#3b82f6', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];
-            const numFireworks = 15;
-            const particlesPerFirework = 30;
+            const numFireworks = 15; 
+            const particlesPerFirework = 30; 
 
             for (let i = 0; i < numFireworks; i++) {
                 setTimeout(() => {
@@ -425,16 +363,20 @@
                         particle.style.top = `${startY}px`;
 
                         const angle = Math.random() * Math.PI * 2;
-                        const distance = Math.random() * 80 + 20;
-
+                        const distance = Math.random() * 80 + 20; 
+                        
                         particle.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
                         particle.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
-                        particle.style.animationDelay = `${Math.random() * 0.1}s`;
+                        particle.style.animationDelay = `${Math.random() * 0.1}s`; 
                         fireworksContainer.appendChild(particle);
 
-                        particle.addEventListener('animationend', () => particle.remove());
+                        particle.addEventListener('animationend', () => {
+                            particle.remove();
+                        });
                     }
-                    origin.addEventListener('animationend', () => origin.remove());
+                    origin.addEventListener('animationend', () => {
+                        origin.remove();
+                    });
 
                 }, i * 300);
             }
@@ -443,177 +385,85 @@
             setTimeout(() => {
                 fireworksContainer.classList.add('hidden');
                 fireworksContainer.style.display = 'none';
-                fireworksContainer.innerHTML = '';
+                fireworksContainer.innerHTML = ''; 
             }, numFireworks * 300 + 1000);
         }
 
-        // --- FIRESTORE OPERATIONS (Операції Firestore) ---
-
-        /** Retrieves the user's nickname from Firestore (Отримує нікнейм користувача з Firestore) */
-        async function getNickname(uid) {
-            if (!db || !uid) return null;
-            try {
-                const docRef = doc(db, 'artifacts', appId, 'users', uid, 'user_data', 'profile');
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    return docSnap.data().nickname;
-                }
-            } catch (error) {
-                console.error("Error fetching nickname:", error);
-            }
-            return null;
+        // Function to reset modals
+        function resetModals() {
+            overlay.classList.add('hidden');
+            connectModal.classList.add('hidden');
+            loadingModal.classList.add('hidden');
+            successModal.classList.add('hidden');
+            fireworksContainer.classList.add('hidden');
+            fireworksContainer.style.display = 'none';
+            fireworksContainer.innerHTML = '';
         }
 
-        /** Saves the user's nickname to Firestore (Зберігає нікнейм користувача в Firestore) */
-        async function saveNickname(uid, nickname) {
-            if (!db || !uid) return false;
-            try {
-                const docRef = doc(db, 'artifacts', appId, 'users', uid, 'user_data', 'profile');
-                await setDoc(docRef, { nickname, updated_at: new Date().toISOString() }, { merge: true });
-                return true;
-            } catch (error) {
-                console.error("Error saving nickname:", error);
-                showMessage('Database Error', 'Could not save your nickname. Please try again later.');
-                return false;
-            }
-        }
+        // --- EVENT LISTENERS ---
 
-        // --- AUTH & INIT (Автентифікація та Ініціалізація) ---
-
-        async function initFirebase() {
-            if (Object.keys(firebaseConfig).length === 0) {
-                console.error("Firebase config is missing. Cannot initialize Firebase.");
-                showMessage('Configuration Error', 'Firebase configuration is unavailable.');
-                return;
-            }
-
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            
-            // Authenticate the user (Автентифікувати користувача)
-            try {
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Authentication failed:", error);
-                showMessage('Authentication Failed', 'Could not sign in to the service. Please refresh the page.');
-            }
-
-            // Set up auth listener to handle post-sign-in logic (Встановлення слухача автентифікації)
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    
-                    // 1. Fetch saved nickname (Отримати збережений нікнейм)
-                    const savedNickname = await getNickname(userId);
-
-                    if (savedNickname) {
-                        userDisplayName.textContent = savedNickname;
-                        // If nickname exists, pre-fill the input
-                        nicknameInput.value = savedNickname; 
-                    } else {
-                        userDisplayName.textContent = 'New User';
-                    }
-                    
-                    // Enable buttons once user is authenticated (Активувати кнопки після автентифікації)
-                    getScriptBtns.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    });
-                    
-                } else {
-                    userId = null;
-                    userDisplayName.textContent = 'Not Signed In';
-
-                    // Keep buttons disabled if auth fails or not ready (Залишити кнопки неактивними)
-                    getScriptBtns.forEach(btn => {
-                        btn.disabled = true;
-                        btn.classList.add('opacity-50', 'cursor-not-allowed');
-                    });
-                }
-            });
-        }
-
-        // --- EVENT HANDLERS (Обробники подій) ---
-
-        // Event: "Get Script" Click (Натискання кнопки "Download Script")
+        // Event: "Download Script" Click
         getScriptBtns.forEach(btn => {
             btn.addEventListener('click', (event) => {
-                // The button is disabled until userId is set, so no explicit check or loading message needed here.
-                // Кнопка неактивна, доки userId не встановлено, тому перевірка або повідомлення про завантаження не потрібні.
+                // 1. Capture the script name
+                selectedScriptName = event.currentTarget.getAttribute('data-script-name') || 'Generic Script';
+                
+                // 2. Update the connect modal title
+                scriptNameDisplay.textContent = selectedScriptName;
 
-                currentScript = event.currentTarget.getAttribute('data-script');
+                // 3. Show the modal
+                resetModals(); // Ensure all are hidden first
                 overlay.classList.remove('hidden');
                 connectModal.classList.remove('hidden');
+                nicknameInput.value = '';
                 nicknameInput.focus();
             });
         });
 
-        // Event: "OK" Click (Connect)
-        okBtn.addEventListener('click', async () => {
+        // Event: "OK" Click (Initiate Connection)
+        okBtn.addEventListener('click', () => {
             const nickname = nicknameInput.value.trim();
             if (!nickname) {
-                nicknameError.classList.remove('hidden');
-                nicknameInput.focus();
+                // Show error if empty
+                nicknameInput.classList.add('border-red-500');
+                nicknameInput.classList.remove('border-gray-300');
+                setTimeout(() => {
+                    nicknameInput.classList.remove('border-red-500');
+                    nicknameInput.classList.add('border-gray-300');
+                }, 500);
                 return;
             }
-            nicknameError.classList.add('hidden');
 
+            // Transition to loading state
             connectModal.classList.add('hidden');
+            loadingMessage.textContent = `Connecting "${selectedScriptName}" to Roblox account: ${nickname}...`;
             loadingModal.classList.remove('hidden');
 
-            // 1. Save nickname (Збереження нікнейму)
-            const saveSuccessful = await saveNickname(userId, nickname);
-
-            if (saveSuccessful) {
-                userDisplayName.textContent = nickname; // Update UI display name immediately
-
-                // 2. Simulate "Connecting Script" delay (Симуляція затримки підключення скрипта)
-                setTimeout(() => {
-                    loadingModal.classList.add('hidden');
-                    successMessage.innerHTML = `Script <strong>"${currentScript}"</strong> successfully injected for <strong>${nickname}</strong>!`;
-                    successModal.classList.remove('hidden');
-                    launchFireworks();
-                }, 1500);
-
-            } else {
+            // Mock connection delay
+            setTimeout(() => {
                 loadingModal.classList.add('hidden');
-                // showMessage already called inside saveNickname on error
-            }
+                successModal.classList.remove('hidden');
+                launchFireworks(); 
+            }, 1800);
         });
 
-        // Event: "Got It" Click
-        gotItBtn.addEventListener('click', () => {
-            hideModals();
-        });
+        // Event: "Got It" Click (Close Success)
+        gotItBtn.addEventListener('click', resetModals);
 
-        // Event: Message Modal Close
-        msgOkBtn.addEventListener('click', () => {
-            hideModals();
-        });
-
-
-        // Close on Overlay Click (only if no modal is active that requires interaction)
+        // Close on Overlay Click (Allow user to click outside)
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
-                hideModals();
+                resetModals();
             }
         });
 
-        // Enter key support for nickname input
+        // Enter key support on nickname input
         nicknameInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 okBtn.click();
             }
         });
-
-        // --- INITIALIZATION (Ініціалізація) ---
-        window.onload = initFirebase;
-
+        
     </script>
 </body>
 </html>
